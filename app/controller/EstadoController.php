@@ -17,6 +17,7 @@ class EstadoController
 		$estado->poblacion_hombres = $_POST['poblacionH'];
 		$estado->poblacion_mujeres = $_POST['poblacionM'];
 		$estado->poblacion_total = $_POST['poblacionT'];
+		$estado->edad_promedio = $_POST['edadP'];
 		$estado->create();
 		//redireccionamos con un header location a la vista de agregarEstado
 		header("location: index.php?controller=Direccion&action=agregarEstado");
@@ -44,6 +45,7 @@ class EstadoController
 		$estado->poblacion_hombres = $_POST['poblacionHeditar'];
 		$estado->poblacion_mujeres = $_POST['poblacionMeditar'];
 		$estado->poblacion_total = $_POST['poblacionTeditar'];
+		$estado->edad_promedio = $_POST['edadPeditar'];
 		$estado->update();
 		//redireccionamos a la vista agregarEstado
 		header("location: index.php?controller=Direccion&action=agregarEstado");

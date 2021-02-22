@@ -21,8 +21,7 @@
     		<div class="collapse navbar-collapse" id="navbarSupportedContent">
     			<ul class="navbar-nav me-auto">
     				<li class="nav-item"><a class="nav-link active" href="#">Agregar estado</a></li>
-    				<li class="nav-item"><a class="nav-link" href="index.php?controller=Direccion&action=agregarPersona">Agregar persona</a></li>
-    				<li class="nav-item"><a class="nav-link" href="index.php?controller=Direccion&action=agregarPersonaContagiada">Persona contagiada</a></li>
+    				<li class="nav-item"><a class="nav-link" href="index.php?controller=Direccion&action=agregarContagio">Agregar contagio</a></li>
     				<li class="nav-item"><a class="nav-link" href="index.php?controller=Direccion&action=consulta">Consulta</a></li>
     			</ul>
     		</div>
@@ -50,6 +49,10 @@
 						<label class="form-label" for="">Total de habitamtes</label>
 						<input class="form-control" type="number" readonly="" min="0" name="poblacionT" id="poblacionT">
 					</div>
+					<div class="form-group col-ms-6">
+						<label class="form-label" for="">Edad promedio</label>
+						<input class="form-control" type="number" min="0" name="edadP" id="edadP">
+					</div>
 					<button type="submit" class="btn btn-primary col-lg-12" id="btnGurdar">Guardar</button>
 				</form>
 			</div>
@@ -61,6 +64,7 @@
 							<th class="col">Poblacion mujeres</th>
 							<th class="col">Poblacion hombres</th>
 							<th class="col">Poblacion total</th>
+							<th class="col">Edad Promedio</th>
 							<th class="col">Accion</th>
 						</tr>
 					</thead>
@@ -98,6 +102,10 @@
 			        		<label for="" class="form-label">Poblacion Total</label>
 			        		<input class="form-control" type="number" readonly="" name="poblacionTeditar" id="poblacionTeditar">
 			        	</div>
+			        	<div class="form-group col-ms-6">
+						<label class="form-label" for="">Edad promedio</label>
+						<input class="form-control" type="number" min="0" name="edadPeditar" id="edadPeditar">
+					</div>
 			        	<button type="submit" class="btn btn-primary">Save changes</button>
 			        </form>
 			      </div>

@@ -22,6 +22,7 @@ function listar() {
 									'<td>'+dato.poblacion_m+'</td>'+
 									'<td>'+dato.poblacion_h+'</td>'+
 									'<td>'+dato.poblacion_total+'</td>'+
+									'<td>'+dato.edad_promedio+'</td>'+
 									'<td>'+
 										'<button onclick="editar('+dato.idestado+')" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdateEstado"><i class="fas fa-pen"></i></button>'+
 										'<button onclick="borrar('+dato.idestado+')" class="btn btn-danger"><i class="fas fa-trash"></i></button>'+
@@ -44,6 +45,7 @@ function editar(idestado){
 			$("#poblacionHeditar").val(dato.poblacion_h);
 			$("#poblacionMeditar").val(dato.poblacion_m);
 			$("#poblacionTeditar").val(dato.poblacion_total);
+			$("#edadPeditar").val(dato.edad_promedio);
 		}
 	});
 }

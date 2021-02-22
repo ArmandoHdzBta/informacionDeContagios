@@ -1,16 +1,14 @@
 <?php
-//definimos el nombre del espacio de trabajo
+
 namespace Models;
-//clase extado y extiende de la clase conexion para la base de datos
-class Estado extends Conexion
+
+class Contagio extends Conexion
 {
-	//atributos de la clase
-	public $idestado;
-	public $nombre;
-	public $poblacion_hombres;
-	public $poblacion_mujeres;
-	public $poblacion_total;
-	public $edad_promedio;
+	//atributos
+	public $idcontagio;
+	public $estado;
+	public $cantidad;
+	public $fecha;
 	//funcion contructor que nos ayudara a ejecutar el contructor de la clase conexion
 	function __construct()
 	{
@@ -18,25 +16,25 @@ class Estado extends Conexion
 		//significa que tambien se va a correr el contructor padre
 		parent::__construct();
 	}
-	//funcion que nos permite registrar en la BD un registro
+	//funcio para registrar contagio
 	public function create()
 	{
-		//consulta SQL y a los valores a insertar seles coloca un ?
-		$sql = "INSERT INTO estado(nombre, poblacion_h, poblacion_m, poblacion_total, edad_promedio) VALUES (?,?,?,?,?)";
-		//preparamos la consulta
+		//sentencia SQL
+		$sql = "INSERT INTO contagio(estado, cantidad, fecha) VALUES (?,?,?)";
+		//se prepara la consulta
 		$pre = mysqli_prepare($this->con, $sql);
-		//agregamos los datos 1.- tipo de dato, 2.- los valores
-		$pre->bind_param('siiii', $this->nombre, $this->poblacion_hombres, $this->poblacion_mujeres, $this->poblacion_total, $this->edad_promedio);
+		//se le pasan los parametros a la consulta con su respectivo tipo de dato
+		$pre->bind_param('iis',$this->estado, $this->cantidad, $this->fecha);
 		//ejecutamos la consulta
 		$pre->execute();
 	}
-	//funcion estatica que nos ayuda a obtener todos los registros de la BD
+	//funcion para mostrar todos los contagios
 	static function all()
 	{
 		//objeto para la conexion a la BD
 		$conexion = new Conexion();
 		//consulta SQL
-		$sql = "SELECT * FROM estado ORDER BY nombre ASC";
+		$sql = "SELECT idcontagio, estado.nombre AS estado, contagio.cantidad, contagio.fecha FROM contagio INNER JOIN estado ON contagio.estado = estado.idestado";
 		//se prepara la consulta
 		$pre = mysqli_prepare($conexion->con, $sql);
 		//ejecutamos la consulta
@@ -50,20 +48,19 @@ class Estado extends Conexion
 		//retornamos todos los registros almacenados en $t
 		return $t;
 	}
-	//funcion estatica que nos permite mostrar los datos de un registro en espesifico
-	static function selectEstado($idestado)
+	static function selectEstado($idcontagio)
 	{
 		//objeto para la conexion a la BD
 		$conexion = new Conexion();
 		//consulta SQL
-		$sql = "SELECT * FROM estado WHERE idestado = ?";
-		//preparamos la consulta
+		$sql = "SELECT idcontagio, estado.nombre AS estado, contagio.cantidad, contagio.fecha FROM contagio INNER JOIN estado ON contagio.estado = estado.idestado WHERE idcontagio = ?";
+		//se prepara la consulta
 		$pre = mysqli_prepare($conexion->con, $sql);
-		//añadimos los parameros 1.- tipo de dato, 2.- los valores
-		$pre->bind_param('i', $idestado);
+		//se le pasan los parametros a la consulta con su respectivo tipo de dato
+		$pre->bind_param('i',$idcontagio);
 		//ejecutamos la consulta
 		$pre->execute();
-		//obtnemos los resultados
+		//obtenemos todos los resulatados
 		$res = $pre->get_result();
 		//los recorremos cada uno y los guadramos en un arreglo $t[]
 		while ($y = mysqli_fetch_assoc($res)) {
@@ -72,27 +69,29 @@ class Estado extends Conexion
 		//retornamos todos los registros almacenados en $t
 		return $t;
 	}
+	//funcio para actualizar un registro
 	public function update()
 	{
 		//consulta SQL
-		$sql = "UPDATE estado SET nombre=?, poblacion_h=?, poblacion_m=?, poblacion_total=?, edad_promedio = ? WHERE idestado = ?";
+		$sql = "UPDATE contagio SET estado = ?, cantidad = ?, fecha = ? WHERE idcontagio = ?";
 		//se prepara la consulta
 		$pre = mysqli_prepare($this->con, $sql);
 		//añadimos los parameros 1.- tipo de dato, 2.- los valores
-		$pre->bind_param('siiiii', $this->nombre, $this->poblacion_hombres, $this->poblacion_mujeres, $this->poblacion_total, $this->edad_promedio, $this->idestado);
+		$pre->bind_param('iisi', $this->estado, $this->cantidad, $this->fecha, $this->idcontagio);
 		//ejecutamos la consulta
 		$pre->execute();
 	}
-	static function delete($idestado)
+	//funcion para borrar un registro en la BD
+	public function delete($idcontagio)
 	{
 		//objeto para la conexiona la BD
 		$conexion = new Conexion();
 		//consulta SQL
-		$sql = "DELETE FROM estado WHERE idestado = ?";
+		$sql = "DELETE FROM contagio WHERE idcontagio = ?";
 		//se prepara la consulta
 		$pre = mysqli_prepare($conexion->con, $sql);
 		//añadimos los parameros 1.- tipo de dato, 2.- los valores
-		$pre->bind_param('i',$idestado);
+		$pre->bind_param('i',$idcontagio);
 		//ejecutamos la consulta
 		$pre->execute();
 	}

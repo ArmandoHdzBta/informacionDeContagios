@@ -7,13 +7,9 @@ class DireccionController
 	{
 		require 'app/views/agregarEstado.php';
 	}
-	public function agregarPersona()
+	public function agregarContagio()
 	{
-		require 'app/views/agregarPersona.php';
-	}
-	public function agregarPersonaContagiada()
-	{
-		require 'app/views/agregarPersonaContagiada.php';
+		require 'app/views/agregarContagio.php';
 	}
 	public function consulta()
 	{
